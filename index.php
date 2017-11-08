@@ -7,6 +7,7 @@ $genre = (!empty($_GET['genre']) ? $_GET['genre'] : null);
 
 $client = new \GuzzleHttp\Client();
 
+// MOVIES LIST
 $res = $client->request('GET', 'https://yts.ag/api/v2/list_movies.json?&genre='.$genre, ["verify" => false]);
 $tab = $res->getBody();
 $moviesTab = json_decode($tab, true);
@@ -27,19 +28,8 @@ $movies = $moviesTab['data']['movies'];
 </head>
 <body>
     
-<?php
 
-foreach ($movies as $movie) {
-    $poster = $movie['medium_cover_image'];
-    ?>
-   <a href="movieDetails.php?id=<?= $movie["id"] ?>">
-   <img src="<?= $poster ?>"></a>
-<?php
-}
 
-    
-
-?>
 
 
 <form method="get" action="http://localhost/Torrents/index.php">
@@ -69,6 +59,21 @@ foreach ($movies as $movie) {
      <input type="submit" value="Go" title="valider pour aller à la page sélectionnée" />
     </p>
 </form>
+
+
+<?php
+
+foreach ($movies as $movie) {
+    $poster = $movie['medium_cover_image'];
+    ?>
+   <a href="movieDetails.php?id=<?= $movie["id"] ?>">
+   <img src="<?= $poster ?>"></a>
+<?php
+}
+
+    
+
+?>
 
 <?php
 
